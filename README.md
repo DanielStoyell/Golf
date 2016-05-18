@@ -5,7 +5,7 @@ that controlled different priorities, actions in a decision tree, and behaviors.
 other, then outputs the raw data into a text file in a format readable by R, for later statistical analysis. In this way I was able to
 optimize the behavior of the bot.
 
-Conclusions:\n
+Conclusions:  
 1. Golf is mostly luck (Even the best bots only have a win rate of ~28% in a game of 4)
 2. Information has very little value - one should take only cards that improve your score, regardless of info
 3. Flipping is rarely a good idea. Better to draw.
