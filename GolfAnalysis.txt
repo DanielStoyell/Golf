@@ -1,0 +1,114 @@
+Correlations between win percent and variables:
+
+Test 1:
+Decent value range, trying to be comprehensive
+
+for v in range(5):
+	for d in [True, False]:
+		for e in range(3):
+			for p in [-4,1,3]:
+				botList.append([str(i), 2*v, d, 4*e, p])
+
+info_value: -.975!!!!! | Try negative values - is taking lower than mean only preferable?
+draw = .129 | Drawing is better? More testing needed - p=.2259
+end = -.085 | Not nearly convincing of any difference - more testing needed, or different system?
+pair = .00842 | So small as to be nonexistent - is this every getting tripped? Test w/print
+
+Test 2:
+Removing the massive impact of info_value by setting to 0, to allow for better correlation of other variables
+
+for v in [0]:
+	for d in [True, False]:
+		for e in range(3):
+			for p in [-4,0,1,2,3]:
+				botList.append([str(i), v, d, 4*e, p])
+				
+draw = .3644 | p=.004199 - drawing is better. Look over code for reveal, alter a bit.
+end = -.2275 | p=.08042 - seems like 0 is best. That's interesting. Try neg?
+pair = -.052 | p=.6925 - Doesn't even happen. Try printing crap
+
+Test 3:
+Fixed pairing system with smaller.
+
+for v in [0]:
+	for d in [True, False]:
+		for e in range(4):
+			for p in [-4,0,1,2,3,4,5]:
+				botList.append([str(i), v, d, 4*e, p])
+				wins.append(0)
+				games.append(0)
+				sum_scores.append(0)
+				i += 1
+
+draw = .814 | p<<<.01 - drawing better, period.
+end = -.49 | p<<<.01 - lower end is better, including 0. Interesting.
+pair = -.086 | p=.5268 - Still no difference... Interesting.
+
+Test 4:
+All variables but pair removal.
+
+for filler in range(7):
+	for v in [0]:
+		for e in [0]:
+			for p in [-4,0,1,2,3,4,5]:
+				botList.append([str(i), v, True, 4*e, p])
+				wins.append(0)
+				games.append(0)
+				sum_scores.append(0)
+				i += 1
+				
+pair = -.1083 | p=.4589 - Doesn't appear to have an impact, no matter how hard one tries
+
+Test 5:
+Added degrading info_value. Test of different combinations of values.
+
+for filler in range(1):
+	for v in [0,1,2,3,4,5,6]:
+		for e in [0]:
+			for p in [2]:
+				for m in [0, .3, .6, 1, 1.3, 1.6, 2]:
+					botList.append([str(i), v, True, 4*e, p, m])
+					
+Unclear results. Lower ends of both are best. Narrowing down for next trial
+
+Test 6:
+Narrow and lower than 5
+
+for filler in range(1):
+	for v in [0,.5,1,1.5,2,2.5,3]:
+		for e in [0]:
+			for p in [2]:
+				for m in [0,.1,.2,.3,.4,.5]:
+					botList.append([str(i), v, True, 4*e, p, m])
+					
+Results fairly clear. Information has 0 value - take lower than mean only.
+
+Test 7:
+Weird values. Does a negative info value help? Is desiring to end while losing good?
+
+for filler in range(2):
+	for v in [-3,-2,-1,-.5,0,.5,1,2]:
+		for e in [-2,-1,0]:
+			for p in [2]:
+				botList.append([str(i), v, True, 4*e, p, 0])
+					
+Wow. Negative relationship between win percent and info value continues into negative info values. Testing even further. Will investigate why.
+Unclear on ending.
+
+Test 8:
+
+Relationship extremely weak. Changed code?
+
+Test Many tests later (nominally 10):
+
+Playing lots of bots against each other yield strange results. Best guess is that
+high info offset bots are ok against playing really low. 0 seems to be
+versatile, so we'll go with it.
+
+After trials, best bot:
+
+Info Value: -2
+Draw: Yes
+End: -2
+Pair: 1
+Mod: N/A 
